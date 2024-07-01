@@ -1,6 +1,7 @@
 package lk.ijse.tailorsystem.bo;
 
 import lk.ijse.tailorsystem.bo.custom.impl.CustomerBOImpl;
+import lk.ijse.tailorsystem.bo.custom.impl.ProductBOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -11,7 +12,7 @@ public class BOFactory {
     }
 
     public enum BOTypes{
-        CUSTOMER,ITEM,PO
+        CUSTOMER,PRODUCT,ITEM,PO
     }
 
     //Object creation logic for BO objects
@@ -19,6 +20,8 @@ public class BOFactory {
         switch (types){
             case CUSTOMER:
                 return new CustomerBOImpl();
+            case PRODUCT:
+                return new ProductBOImpl();
             default:
                 return null;
         }

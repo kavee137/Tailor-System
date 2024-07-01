@@ -20,8 +20,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     public String getCustomerCount() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = SQLUtil.execute("SELECT COUNT(*) AS activeCustomerCount FROM customer WHERE status = 'Active'");
         if(resultSet.next()) {
-            String count = resultSet.getString(1);
-            return count;
+            return resultSet.getString(1);
         }
         return null;
     }
@@ -42,8 +41,8 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer search(String nic) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.execute("SELECT customerID, customerName, customerAddress, customerTel, status FROM customer WHERE NIC = ?", nic);
+    public Customer search(Object... args) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.execute("SELECT customerID, customerName, customerAddress, customerTel, status FROM customer WHERE NIC = ?", args);
 
         if(resultSet.next()) {
             String customerId = resultSet.getString(1);
@@ -65,7 +64,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public String generateNewID() throws SQLException, ClassNotFoundException {
+    public String generateNewID(Object... args) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = SQLUtil.execute("SELECT customerID FROM customer ORDER BY customerID DESC LIMIT 1");
 
         if (resultSet.next()){

@@ -13,13 +13,15 @@ public class DAOFactory {
     }
 
     public enum DAOTypes {
-        CUSTOMER,ITEM,ORDER,ORDER_DETAILS,QUERY_DAO
+        CUSTOMER,PRODUCT,ORDER,ORDER_DETAILS,QUERY_DAO
     }
 
     public SuperDAO getDAO(DAOTypes types){
         switch (types) {
             case CUSTOMER:
                 return new CustomerDAOImpl();
+            case PRODUCT:
+                return new ProductDAOImpl();
             default:
                 return null;
         }

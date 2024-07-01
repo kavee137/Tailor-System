@@ -23,4 +23,20 @@ public class Product {
         this.productSize = productSize;
         this.qtyOnHand = String.valueOf(qtyOnHand);
     }
+
+    public Product(String productID, String unitPrice, String qtyOnHand) {
+        this.productID = productID;
+        this.unitPrice = unitPrice;
+        this.qtyOnHand = qtyOnHand;
+    }
+
+    public Product(int productID, String productName, String productColor, String productSize, double unitPrice, int qtyOnHand) {
+        this.productID = String.valueOf(productID);
+        this.productName = productName;
+        this.productColor = productColor;
+        this.productSize = productSize;
+        this.unitPrice = String.valueOf(unitPrice);
+        this.qtyOnHand = String.valueOf(qtyOnHand);
+
+    }
 }
