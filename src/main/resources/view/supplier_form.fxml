@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootNode" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: edf2fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.tailorshopmanagementsystem.controller.SupplierFormController">
+<AnchorPane fx:id="rootNode" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: edf2fb;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.tailorsystem.controller.SupplierFormController">
    <children>
       <Rectangle arcHeight="50.0" arcWidth="50.0" fill="WHITE" height="157.0" layoutX="109.0" layoutY="51.0" strokeType="INSIDE" width="876.0" />
       <Label layoutX="437.0" layoutY="79.0" text="NIC:" textFill="#757575">
