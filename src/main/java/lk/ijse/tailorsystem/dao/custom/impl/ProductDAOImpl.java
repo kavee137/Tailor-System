@@ -123,8 +123,8 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public String generateNewID(Object... args) throws SQLException, ClassNotFoundException{
-        ResultSet resultSet = SQLUtil.execute("SELECT productID FROM product ORDER BY productID DESC LIMIT 1", args);
+    public String generateNewID() throws SQLException, ClassNotFoundException{
+        ResultSet resultSet = SQLUtil.execute("SELECT productID FROM product ORDER BY productID DESC LIMIT 1");
         if(resultSet.next()) {
             return resultSet.getString(1);
         }

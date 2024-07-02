@@ -34,7 +34,7 @@ public interface ProductBO extends SuperBO {
 
     List<String> getProductColor(String productName) throws SQLException, ClassNotFoundException;
 
-    String generateNewID(Object... args) throws SQLException, ClassNotFoundException;
+    String generateNewID() throws SQLException, ClassNotFoundException;
 
     List<String> getProductName() throws SQLException, ClassNotFoundException;
 }

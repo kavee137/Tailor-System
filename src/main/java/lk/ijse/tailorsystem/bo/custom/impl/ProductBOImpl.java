@@ -79,8 +79,8 @@ public class ProductBOImpl implements ProductBO {
     }
 
     @Override
-    public String generateNewID(Object... args) throws SQLException, ClassNotFoundException{
-       return productDAO.generateNewID(args);
+    public String generateNewID() throws SQLException, ClassNotFoundException{
+       return productDAO.generateNewID();
     }
 
     @Override
