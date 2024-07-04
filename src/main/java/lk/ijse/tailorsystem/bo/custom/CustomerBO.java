@@ -6,6 +6,7 @@ import lk.ijse.tailorsystem.entity.Customer;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface CustomerBO extends SuperBO {
 
@@ -21,5 +22,5 @@ public interface CustomerBO extends SuperBO {
 
     public String generateNewCustomerID() throws SQLException, ClassNotFoundException;
 
-    public Customer customerSearch(String nic) throws SQLException, ClassNotFoundException;
+    Customer customerSearch(String cusNic) throws SQLException, ClassNotFoundException;
 }

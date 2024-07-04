@@ -4,7 +4,6 @@ import lk.ijse.tailorsystem.bo.custom.ProductBO;
 import lk.ijse.tailorsystem.dao.DAOFactory;
 import lk.ijse.tailorsystem.dao.custom.ProductDAO;
 import lk.ijse.tailorsystem.dto.ProductDTO;
-import lk.ijse.tailorsystem.entity.Customer;
 import lk.ijse.tailorsystem.entity.Product;
 import lk.ijse.tailorsystem.entity.ReservationDetails;
 
@@ -15,6 +14,14 @@ import java.util.List;
 public class ProductBOImpl implements ProductBO {
 
     ProductDAO productDAO = (ProductDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PRODUCT);
+
+
+    @Override
+    public  List<String> getQtyOnHand(String name, String color, String size) throws SQLException, ClassNotFoundException {
+        return productDAO.getQtyOnHand(name, color, size);
+    }
+
+
     @Override
     public String getTotalProduct() throws SQLException, ClassNotFoundException {
         return productDAO.getTotalProduct();

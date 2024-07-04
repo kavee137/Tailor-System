@@ -7,9 +7,14 @@ import lk.ijse.tailorsystem.entity.Product;
 import lk.ijse.tailorsystem.entity.ReservationDetails;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ProductDAO extends CrudDAO<Product> {
+
+    List<String> getQtyOnHand(String name, String color, String size) throws SQLException, ClassNotFoundException;
+
+    boolean returnUpdateQty(int proId, int qty) throws SQLException, ClassNotFoundException;
 
     String getTotalProduct() throws SQLException, ClassNotFoundException;
 

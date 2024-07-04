@@ -18,6 +18,10 @@ public class Reservation {
     private Date reservationDate;
     private Date returnDate;
     private String status;
+
+    public Reservation(String resId) {
+        this.reservationID = Integer.parseInt(resId);
+    }
 }
 
 //

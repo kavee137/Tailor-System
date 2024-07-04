@@ -1,7 +1,6 @@
 
 package lk.ijse.tailorsystem.dao.custom.impl;
 
-import javafx.fxml.FXML;
 import lk.ijse.tailorsystem.dao.SQLUtil;
 import lk.ijse.tailorsystem.dao.custom.CustomerDAO;
 import lk.ijse.tailorsystem.db.DbConnection;
@@ -57,6 +56,23 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return null;
     }
+
+
+
+//    This serach for reservationDAOImpl customerSearch
+    @Override
+    public List<String> customerSearch(String cusNic) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.execute("SELECT customerName, customerID FROM customer WHERE NIC = ? AND status = ?", cusNic, "Active");
+
+        List<String> a = new ArrayList<>();
+        if (resultSet.next()) {
+            a.add(resultSet.getString(1));
+            a.add(resultSet.getString(2));
+            return a;
+        }
+        return null;
+    }
+
 
     @Override
     public boolean add(Customer customer) throws SQLException, ClassNotFoundException {

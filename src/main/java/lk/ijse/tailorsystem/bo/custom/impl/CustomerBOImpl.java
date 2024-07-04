@@ -1,6 +1,5 @@
 package lk.ijse.tailorsystem.bo.custom.impl;
 
-import lk.ijse.tailorsystem.bo.SuperBO;
 import lk.ijse.tailorsystem.bo.custom.CustomerBO;
 import lk.ijse.tailorsystem.dao.DAOFactory;
 import lk.ijse.tailorsystem.dao.custom.CustomerDAO;
@@ -9,6 +8,7 @@ import lk.ijse.tailorsystem.entity.Customer;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerBOImpl implements CustomerBO {
 

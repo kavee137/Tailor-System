@@ -12,6 +12,8 @@ import java.util.List;
 public interface ProductBO extends SuperBO {
 
 
+    List<String> getQtyOnHand(String name, String color, String size) throws SQLException, ClassNotFoundException;
+
     String getTotalProduct() throws SQLException, ClassNotFoundException;
 
     boolean reservatioQtyUpdate(List<ReservationDetails> prList) throws SQLException, ClassNotFoundException;
