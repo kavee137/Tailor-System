@@ -13,7 +13,7 @@ public class BOFactory {
     }
 
     public enum BOTypes{
-        CUSTOMER,PRODUCT,EMPLOYEE,SUPPLIER,FABRIC,USER,RESERVATION,RESERVATIONDETAILS,PLACERESERVATION,VIEWRESERVATION
+        CUSTOMER,PRODUCT,EMPLOYEE,SUPPLIER,FABRIC,USER,RESERVATION,RESERVATIONDETAILS,PLACERESERVATION,VIEWRESERVATION,ORDER,VIEWORDER
     }
 
     //Object creation logic for BO objects
@@ -39,6 +39,10 @@ public class BOFactory {
                 return new PlaceReservationBOImpl();
             case VIEWRESERVATION:
                 return new ViewReservationBOImpl();
+            case ORDER:
+                return new OrderBOImpl();
+            case VIEWORDER:
+                return new ViewOrderBOImpl();
             default:
                 return null;
         }

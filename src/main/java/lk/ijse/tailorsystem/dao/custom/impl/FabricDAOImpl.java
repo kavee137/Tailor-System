@@ -2,14 +2,43 @@ package lk.ijse.tailorsystem.dao.custom.impl;
 
 import lk.ijse.tailorsystem.dao.SQLUtil;
 import lk.ijse.tailorsystem.dao.custom.FabricDAO;
+import lk.ijse.tailorsystem.db.DbConnection;
 import lk.ijse.tailorsystem.entity.*;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FabricDAOImpl implements FabricDAO {
+
+    @Override
+    public  List<String> getQtyOnHand(String name, String color) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.execute("SELECT fabricQtyOnHand FROM fabric WHERE fabricName = ? AND fabricColor = ?", name, color);
+
+        List<String> qty = new ArrayList<>();
+        while (resultSet.next()) {
+            qty.add(resultSet.getString(1));
+        }
+        return qty;
+    }
+
+
+
+
+    @Override
+    public List<String> getFabricId(String name, String color) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.execute("SELECT fabricID FROM fabric WHERE fabricName = ? AND fabricColor = ?", name, color);
+
+        List<String> idList = new ArrayList<>();
+        while (resultSet.next()) {
+            idList.add(resultSet.getString(1));
+        }
+        return idList;
+    }
+
 
 
     @Override

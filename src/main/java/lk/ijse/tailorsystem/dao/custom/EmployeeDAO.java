@@ -15,4 +15,6 @@ public interface EmployeeDAO extends CrudDAO<Employee> {
     List<String> getPosition() throws SQLException, ClassNotFoundException;
 
     String searchByPosition(String name) throws SQLException, ClassNotFoundException;
+
+    String getEmployeeName(String id) throws SQLException, ClassNotFoundException;
 }

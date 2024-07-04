@@ -1,5 +1,6 @@
 package lk.ijse.tailorsystem.dao.custom.impl;
 
+import lk.ijse.tailorsystem.dao.SQLUtil;
 import lk.ijse.tailorsystem.dao.custom.PaymentDAO;
 import lk.ijse.tailorsystem.db.DbConnection;
 
@@ -47,12 +48,9 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 
     @Override
-    public String generateNewID() throws SQLException {
-        String sql = "SELECT paymentID FROM payment ORDER BY paymentID DESC LIMIT 1";
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.execute("SELECT paymentID FROM payment ORDER BY paymentID DESC LIMIT 1");
 
-        ResultSet resultSet = pstm.executeQuery();
         if(resultSet.next()) {
             return String.valueOf(resultSet.getInt(1));
         }
@@ -61,32 +59,18 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 
     @Override
-    public String getTotalPayment() throws SQLException {
-        String sql = "SELECT SUM(price) AS totalPayment FROM payment";
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
+    public String getTotalPayment() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.execute("SELECT SUM(price) AS totalPayment FROM payment");
 
-        ResultSet resultSet = pstm.executeQuery();
         if(resultSet.next()) {
-            String count = resultSet.getString(1);
-            return count;
+            return resultSet.getString(1);
         }
         return null;
     }
 
     @Override
-    public boolean newPayment(int paymentId, double netTotal, String paymentType) throws SQLException {
-        String sql = "INSERT INTO payment VALUES  (?, ? ,?)";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
-
-        pstm.setInt(1, paymentId);
-        pstm.setString(2, paymentType);
-        pstm.setDouble(3, netTotal);
-
-        return pstm.executeUpdate() > 0;
-
+    public boolean newPayment(int paymentId, double netTotal, String paymentType) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute("INSERT INTO payment VALUES  (?, ? ,?)", paymentId, netTotal, paymentType);
     }
 
 }

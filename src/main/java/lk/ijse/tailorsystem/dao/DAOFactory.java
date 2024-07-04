@@ -1,5 +1,6 @@
 package lk.ijse.tailorsystem.dao;
 
+import lk.ijse.tailorsystem.dao.custom.OrderDetailsDAO;
 import lk.ijse.tailorsystem.dao.custom.PlaceReservationDAO;
 import lk.ijse.tailorsystem.dao.custom.impl.*;
 
@@ -14,7 +15,7 @@ public class DAOFactory {
     }
 
     public enum DAOTypes {
-        CUSTOMER,PRODUCT,EMPLOYEE,SUPPLIER,FABRIC,USER,RESERVATION,RESERVATIONDETAILS,PLACERESERVATION,PAYMENT,VIEWRESERVATION
+        CUSTOMER,PRODUCT,EMPLOYEE,SUPPLIER,FABRIC,USER,RESERVATION,RESERVATIONDETAILS,PLACERESERVATION,PAYMENT,VIEWRESERVATION,ORDER,ORDERDETAILS,VIEWORDER
     }
 
     public SuperDAO getDAO(DAOTypes types){
@@ -41,6 +42,12 @@ public class DAOFactory {
                 return new PaymentDAOImpl();
             case VIEWRESERVATION:
                 return new ViewReservationDAOImpl();
+            case ORDER:
+                return new OrderDAOImpl();
+            case ORDERDETAILS:
+                return new OrderDetailsDAOImpl();
+            case VIEWORDER:
+                return new ViewOrderDAOImpl();
             default:
                 return null;
         }

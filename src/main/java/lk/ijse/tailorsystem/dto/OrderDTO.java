@@ -21,4 +21,8 @@ public class OrderDTO {
     private Date returnDate;
     private String status;
 
+    public OrderDTO(String orderId, String status) {
+        this.orderID = orderId;
+        this.status = status;
+    }
 }

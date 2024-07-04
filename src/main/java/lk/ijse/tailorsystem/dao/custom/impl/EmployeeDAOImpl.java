@@ -2,7 +2,11 @@ package lk.ijse.tailorsystem.dao.custom.impl;
 
 import lk.ijse.tailorsystem.dao.SQLUtil;
 import lk.ijse.tailorsystem.dao.custom.EmployeeDAO;
+import lk.ijse.tailorsystem.db.DbConnection;
 import lk.ijse.tailorsystem.entity.Employee;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -123,4 +127,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         }
         return empList;
     }
+
+    @Override
+    public String getEmployeeName(String id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = SQLUtil.execute("SELECT employeeName FROM employee WHERE employeeID = ?", id);
+
+        String empName = null;
+        while (resultSet.next()) {
+            empName = resultSet.getString(1);
+        }
+        return empName;
+    }
+
 }

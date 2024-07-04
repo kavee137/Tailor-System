@@ -10,7 +10,7 @@ public interface PaymentDAO extends CrudDAO<PaymentDAO> {
 
 //    int generateNewID() throws SQLException;
 
-    String getTotalPayment() throws SQLException;
+    String getTotalPayment() throws SQLException, ClassNotFoundException;
 
-    boolean newPayment(int paymentId, double netTotal, String paymentType) throws SQLException;
+    boolean newPayment(int paymentId, double netTotal, String paymentType) throws SQLException, ClassNotFoundException;
 }
