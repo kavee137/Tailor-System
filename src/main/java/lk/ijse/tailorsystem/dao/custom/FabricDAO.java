@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface FabricDAO extends CrudDAO<Fabric> {
-    List<String> getQtyOnHand(String name, String color) throws SQLException, ClassNotFoundException;
+    String getQtyOnHand(String name, String color) throws SQLException, ClassNotFoundException;
 
     List<String> getFabricId(String name, String color) throws SQLException, ClassNotFoundException;
 

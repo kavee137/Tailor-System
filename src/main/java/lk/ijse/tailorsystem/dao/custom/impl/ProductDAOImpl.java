@@ -114,6 +114,7 @@ public class ProductDAOImpl implements ProductDAO {
         return null;
     }
 
+
     @Override
     public List<String> getProductSize(String name, String color) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = SQLUtil.execute("SELECT productSize FROM product WHERE productName = ? AND productColor = ?", name, color);
@@ -124,6 +125,7 @@ public class ProductDAOImpl implements ProductDAO {
         }
         return codeList;
     }
+
 
     @Override
     public List<String> getProductColor(String productName) throws SQLException, ClassNotFoundException {

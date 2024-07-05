@@ -481,8 +481,8 @@ public class PlaceOrderFormController {
         String color = (String) cmbFabricColor.getValue();
 
         try {
-            List<String> qtyList = fabricDAO.getQtyOnHand(name, color);
-            lblQtyOnHand.setText(qtyList.get(0));
+            String qty = fabricDAO.getQtyOnHand(name, color);
+            lblQtyOnHand.setText(qty);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

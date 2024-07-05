@@ -22,7 +22,7 @@
             <Image url="@../icon/download.jpeg" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#ffffff29" height="393.0" layoutX="474.0" layoutY="117.0" stroke="#ffffffab" strokeType="INSIDE" width="334.0" />
+      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#ffffff29" height="373.0" layoutX="474.0" layoutY="117.0" stroke="#ffffffab" strokeType="INSIDE" width="334.0" />
       <Text fill="WHITE" layoutX="581.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
          <font>
             <Font name="System Bold" size="54.0" />
@@ -37,7 +37,7 @@
             <MotionBlur />
          </effect></Line>
       <Line endX="134.5611572265625" layoutX="627.0" layoutY="386.0" startX="-100.0" stroke="#ffffff26" />
-      <JFXButton layoutX="579.0" layoutY="404.0" onAction="#btnLoginOnAction" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 20;" text="Login" textFill="#0075f2">
+      <JFXButton layoutX="579.0" layoutY="414.0" onAction="#btnLoginOnAction" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 20;" text="Login" textFill="#0075f2">
          <font>
             <Font name="System Bold Italic" size="13.0" />
          </font></JFXButton>

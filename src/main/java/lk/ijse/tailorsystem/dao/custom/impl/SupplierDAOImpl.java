@@ -66,8 +66,6 @@ public class SupplierDAOImpl implements SupplierDAO {
 
     @Override
     public boolean update(Supplier supplier) throws SQLException, ClassNotFoundException {
-        System.out.println("DAOImpl " + supplier.getSupplierID() + " " +  supplier.getNIC() + " " +  supplier.getSupplierName() + " " +  supplier.getSupplierAddress() + " " +  supplier.getSupplierContact() + " " + supplier.getStatus());
-
         return SQLUtil.execute("UPDATE supplier SET supplierID = ?, NIC = ?, supplierName = ?, supplierAddress = ?, supplierContact = ?, status = ? WHERE NIC = ?", supplier.getSupplierID(), supplier.getNIC(), supplier.getSupplierName(), supplier.getSupplierAddress(), supplier.getSupplierContact(), supplier.getStatus(), supplier.getNIC());
     }
 

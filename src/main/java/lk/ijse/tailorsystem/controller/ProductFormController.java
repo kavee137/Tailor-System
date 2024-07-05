@@ -122,7 +122,7 @@ public class ProductFormController {
         }
     }
 
-    private void getProductSize() {
+   /* private void getProductSize() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         String color = cmbProductColor.getValue();
         String name = cmbProductName.getValue();
@@ -135,7 +135,25 @@ public class ProductFormController {
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }*/
+
+    private void getProductSize() {
+        ObservableList<String> obList = FXCollections.observableArrayList();
+        String color = cmbProductColor.getValue();
+        String name = cmbProductName.getValue();
+
+        try {
+            List<String> sizeList = productBO.getProductSize(name, color);
+
+            obList.addAll(sizeList);
+            cmbProductSize.setItems(obList);
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
+
 
     private void getProductName() {
         ObservableList<String> obList = FXCollections.observableArrayList();

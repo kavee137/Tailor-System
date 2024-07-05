@@ -25,19 +25,13 @@ public class PlaceOrderDAOImpl implements SuperBO{
 
         try {
             boolean isMakePayment = paymentDAO.newPayment(po.getOrder().getPaymentID(), netTotal, paymentType);
-            System.out.println("isMakePayment");
             if (isMakePayment) {
                 boolean isOrderSaved = orderDAO.add(po.getOrder());
-                System.out.println("isOrderSaved");
                 if (isOrderSaved) {
                     boolean isQtyUpdated = fabricDAO.odQtyUpdate(po.getOdList());
-                    System.out.println("isQtyUpdated");
-                    System.out.println(isQtyUpdated);
                     if (isQtyUpdated) {
                         boolean isOrderDetailSaved = orderDetailsDAO.save(po.getOdList());
-                        System.out.println("isOrderDetailSaved");
                         if (isOrderDetailSaved) {
-                            System.out.println("commit");
                             connection.commit();
                             return true;
                         }

@@ -23,6 +23,6 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
     }
 
     private static boolean save(OrderDetails od) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("INSERT INTO orderDetails VALUES(?, ?, ?, ?, ?, ?, ?, ?)", od.getOrderID(), od.getFabricID(), od.getDescription(), od.getMeasurements(), od.getFabricSize(), od.getUnitPrice());    //false ->  |
+        return SQLUtil.execute("INSERT INTO orderDetails VALUES(?, ?, ?, ?, ?, ?, ?, ?)", od.getOrderID(), od.getFabricID(), od.getDescription(), od.getMeasurements(), od.getFabricSize(), od.getUnitPrice(), od.getQty(), od.getTotal());    //false ->  |
     }
 }

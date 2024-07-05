@@ -15,15 +15,16 @@ import java.util.List;
 public class FabricDAOImpl implements FabricDAO {
 
     @Override
-    public  List<String> getQtyOnHand(String name, String color) throws SQLException, ClassNotFoundException {
+    public String getQtyOnHand(String name, String color) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = SQLUtil.execute("SELECT fabricQtyOnHand FROM fabric WHERE fabricName = ? AND fabricColor = ?", name, color);
 
-        List<String> qty = new ArrayList<>();
-        while (resultSet.next()) {
-            qty.add(resultSet.getString(1));
+        if (resultSet.next()) {
+            return resultSet.getString(1);
+        } else {
+            return "0"; // or handle it in a way that makes sense for your application
         }
-        return qty;
     }
+
 
 
 

@@ -70,7 +70,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean newPayment(int paymentId, double netTotal, String paymentType) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("INSERT INTO payment VALUES  (?, ? ,?)", paymentId, netTotal, paymentType);
+        return SQLUtil.execute("INSERT INTO payment VALUES  (?, ? ,?)", paymentId, paymentType, netTotal);
     }
 
 }
