@@ -1,6 +1,7 @@
 package lk.ijse.tailorsystem.bo;
 
 import lk.ijse.tailorsystem.bo.custom.impl.*;
+import lk.ijse.tailorsystem.dao.custom.impl.MainDashBoardDAOImpl;
 import lk.ijse.tailorsystem.dao.custom.impl.UserDAOImpl;
 import lk.ijse.tailorsystem.dao.custom.impl.ViewReservationDAOImpl;
 
@@ -13,7 +14,7 @@ public class BOFactory {
     }
 
     public enum BOTypes{
-        CUSTOMER,PRODUCT,EMPLOYEE,SUPPLIER,FABRIC,USER,RESERVATION,RESERVATIONDETAILS,PLACERESERVATION,VIEWRESERVATION,ORDER,VIEWORDER
+        CUSTOMER,PRODUCT,EMPLOYEE,SUPPLIER,FABRIC,USER,RESERVATION,RESERVATIONDETAILS,PLACERESERVATION,VIEWRESERVATION,ORDER,VIEWORDER,MAINDASHBOARD
     }
 
     //Object creation logic for BO objects
@@ -43,6 +44,8 @@ public class BOFactory {
                 return new OrderBOImpl();
             case VIEWORDER:
                 return new ViewOrderBOImpl();
+            case MAINDASHBOARD:
+                return new MainDashBoardBOImpl();
             default:
                 return null;
         }

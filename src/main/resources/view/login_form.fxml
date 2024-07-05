@@ -3,7 +3,6 @@
 <!-- Import PasswordField -->
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -30,8 +29,7 @@
          </font>
       </Text>
       <TextField fx:id="txtUserId" layoutX="518.0" layoutY="271.0" onAction="#txtUsernameOnAction" onKeyReleased="#txtUserNameOnKeyReleased" prefHeight="35.0" prefWidth="249.0" promptText="user name" style="-fx-background-radius: 17;" />
-      <PasswordField fx:id="txtPassword" layoutX="518.0" layoutY="332.0" onAction="#txtPasswordOnAction" prefHeight="35.0" prefWidth="249.0" promptText="password" style="-fx-background-radius: 17;" /> <!-- Change to PasswordField -->
-      <Label layoutX="545.0" layoutY="452.0" text="Don't have an account?" textFill="WHITE" />
+      <PasswordField fx:id="txtPassword" layoutX="518.0" layoutY="332.0" onAction="#txtPasswordOnAction" prefHeight="35.0" prefWidth="249.0" promptText="password" style="-fx-background-radius: 17;" />
       <Label layoutX="521.0" layoutY="252.0" text="user name:" textFill="WHITE" />
       <Label layoutX="523.0" layoutY="313.0" text="password" textFill="WHITE" />
       <Line endX="106.4000244140625" layoutX="642.0" layoutY="220.0" startX="-100.0" stroke="WHITE">
@@ -39,7 +37,6 @@
             <MotionBlur />
          </effect></Line>
       <Line endX="134.5611572265625" layoutX="627.0" layoutY="386.0" startX="-100.0" stroke="#ffffff26" />
-      <Hyperlink layoutX="674.0" layoutY="449.0" onAction="#linkRegistrationOnAction" text="registerHere" textFill="#6adcff" />
       <JFXButton layoutX="579.0" layoutY="404.0" onAction="#btnLoginOnAction" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 20;" text="Login" textFill="#0075f2">
          <font>
             <Font name="System Bold Italic" size="13.0" />
