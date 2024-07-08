@@ -1,6 +1,8 @@
 package lk.ijse.tailorsystem.dao.custom.impl;
 
+import lk.ijse.tailorsystem.dao.DAOFactory;
 import lk.ijse.tailorsystem.dao.SQLUtil;
+import lk.ijse.tailorsystem.dao.custom.QueryDAO;
 import lk.ijse.tailorsystem.dao.custom.ReservationDAO;
 import lk.ijse.tailorsystem.db.DbConnection;
 import lk.ijse.tailorsystem.entity.Reservation;
@@ -12,6 +14,7 @@ import java.util.List;
 
 public class ReservationDAOImpl implements ReservationDAO {
 
+    QueryDAO queryDAO = (QueryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERY);
 
     @Override
     public String getReservationCount() throws SQLException, ClassNotFoundException {
@@ -35,7 +38,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 
     @Override
     public ArrayList<String> getReservationJoinTable(int id) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.execute("SELECT r.customerID, c.customerName, r.paymentID, p.paymentType, p.price, r.reservationDate, r.returnDate, r.status AS reservationStatus, c.NIC FROM reservation r JOIN payment p ON r.paymentID = p.paymentID JOIN customer c ON r.customerID = c.customerID WHERE reservationID = ?", id);
+        ResultSet resultSet = queryDAO.getReservationJoinTable(id);
 
         ArrayList<String> rowData = new ArrayList<>();
         if (resultSet.next()) {
@@ -64,7 +67,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 
     @Override
     public List<PaymentTm> getDetails() throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.execute("SELECT r.reservationID, o.orderID, p.paymentID AS payment_paymentID, p.paymentType, p.price FROM reservation r LEFT JOIN orders o ON r.customerID = o.customerID LEFT JOIN payment p ON r.paymentID = p.paymentID");
+        ResultSet resultSet = queryDAO.getDetailsForPaymentTm();
 
         List<PaymentTm> paymentList = new ArrayList<>();
         while (resultSet.next()) {

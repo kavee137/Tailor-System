@@ -1,6 +1,8 @@
 package lk.ijse.tailorsystem.dao.custom.impl;
 
+import lk.ijse.tailorsystem.dao.DAOFactory;
 import lk.ijse.tailorsystem.dao.SQLUtil;
+import lk.ijse.tailorsystem.dao.custom.QueryDAO;
 import lk.ijse.tailorsystem.dao.custom.ViewReservationDAO;
 import lk.ijse.tailorsystem.db.DbConnection;
 
@@ -9,26 +11,26 @@ import java.util.ArrayList;
 
 public class ViewReservationDAOImpl implements ViewReservationDAO {
 
+    QueryDAO queryDAO = (QueryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERY);
+
     @Override
     public ResultSet getReservationDetails(Date dateFrom, Date dateTo) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT r.reservationID, c.customerID, c.NIC, c.customerName, c.customerAddress, c.customerTel, r.paymentID, r.reservationDate, r.returnDate, r.status AS reservationStatus, rd.productID, rd.qty AS quantity, rd.total AS totalAmount, p.paymentType, p.price AS paymentPrice FROM reservation AS r JOIN customer AS c ON r.customerID = c.customerID JOIN reservationDetails AS rd ON r.reservationID = rd.reservationID JOIN payment AS p ON r.paymentID = p.paymentID WHERE r.returnDate BETWEEN ? AND ?";
-
-        return SQLUtil.execute(sql, dateFrom, dateTo);
+        return queryDAO.getReservationDetails(dateFrom, dateTo);
     }
 
     @Override
     public ResultSet getIncompleteReservationDetails() throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("SELECT r.reservationID, c.customerID, c.NIC, c.customerName, c.customerAddress, c.customerTel, r.paymentID, r.reservationDate, r.returnDate, r.status AS reservationStatus, rd.productID, rd.qty AS quantity, rd.total AS totalAmount, p.paymentType, p.price AS paymentPrice FROM reservation AS r JOIN customer AS c ON r.customerID = c.customerID JOIN reservationDetails AS rd ON r.reservationID = rd.reservationID JOIN payment AS p ON r.paymentID = p.paymentID WHERE r.status = 'Incomplete'");
+        return queryDAO.getIncompleteReservationDetails();
     }
 
     @Override
     public ResultSet loadAll() throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("SELECT r.reservationID, c.customerID, c.NIC, c.customerName, c.customerAddress, c.customerTel, r.paymentID, r.reservationDate, r.returnDate, r.status AS reservationStatus, rd.productID, rd.qty AS quantity, rd.total AS totalAmount, p.paymentType, p.price AS paymentPrice FROM reservation AS r JOIN customer AS c ON r.customerID = c.customerID JOIN reservationDetails AS rd ON r.reservationID = rd.reservationID JOIN payment AS p ON r.paymentID = p.paymentID");
+        return queryDAO.loadAll();
     }
 
     @Override
     public ResultSet getCompleted() throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("SELECT r.reservationID, c.customerID, c.NIC, c.customerName, c.customerAddress, c.customerTel, r.paymentID, r.reservationDate, r.returnDate, r.status AS reservationStatus, rd.productID, rd.qty AS quantity, rd.total AS totalAmount, p.paymentType, p.price AS paymentPrice FROM reservation AS r JOIN customer AS c ON r.customerID = c.customerID JOIN reservationDetails AS rd ON r.reservationID = rd.reservationID JOIN payment AS p ON r.paymentID = p.paymentID WHERE r.status = 'Completed'");
+        return queryDAO.getReservationCompleted();
     }
 
 

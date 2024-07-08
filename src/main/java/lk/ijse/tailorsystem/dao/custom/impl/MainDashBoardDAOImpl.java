@@ -1,7 +1,10 @@
 package lk.ijse.tailorsystem.dao.custom.impl;
 
+import lk.ijse.tailorsystem.dao.DAOFactory;
 import lk.ijse.tailorsystem.dao.SQLUtil;
 import lk.ijse.tailorsystem.dao.custom.MainDashBoardDAO;
+import lk.ijse.tailorsystem.dao.custom.QueryDAO;
+import lk.ijse.tailorsystem.dao.custom.ViewOrderDAO;
 import lk.ijse.tailorsystem.entity.*;
 
 import java.sql.ResultSet;
@@ -12,6 +15,8 @@ import java.util.List;
 
 public class MainDashBoardDAOImpl implements MainDashBoardDAO {
 
+    QueryDAO queryDAO = (QueryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERY);
+
     @Override
     public List<Product> getMostReservedProduct() throws SQLException {
         List<Product> products = new ArrayList<>();
@@ -19,14 +24,7 @@ public class MainDashBoardDAOImpl implements MainDashBoardDAO {
 
         for (String productName : productNames) {
             try {
-                ResultSet resultSet = SQLUtil.execute(
-                        "SELECT p.productID, p.productName, p.productColor, p.productSize, p.qtyOnHand " +
-                                "FROM product p INNER JOIN " +
-                                "(SELECT productID, COUNT(*) AS reservationCount FROM reservationDetails " +
-                                "WHERE productID IN (SELECT productID FROM product WHERE productName = ?) " +
-                                "GROUP BY productID ORDER BY reservationCount DESC LIMIT 1) AS r ON p.productID = r.productID",
-                        productName
-                );
+                ResultSet resultSet = queryDAO.getMostReservedProduct(productName);
 
                 while (resultSet.next()) {
                     String productID = resultSet.getString("productID");
@@ -48,11 +46,7 @@ public class MainDashBoardDAOImpl implements MainDashBoardDAO {
         List<MonthlySales> monthlySales = new ArrayList<>();
 
         try {
-            ResultSet resultSet = SQLUtil.execute("SELECT MONTH(o.orderDate) AS order_month, SUM(od.total) AS total_sales " +
-                    "FROM orders o " +
-                    "JOIN orderDetails od ON o.orderID = od.orderID " +
-                    "WHERE YEAR(o.orderDate) = 2024 " +
-                    "GROUP BY MONTH(o.orderDate)");
+            ResultSet resultSet = queryDAO.getMonthlySalesFor2024();
             while (resultSet.next()) {
                 int orderMonth = resultSet.getInt("order_month");
                 double totalSales = resultSet.getDouble("total_sales");

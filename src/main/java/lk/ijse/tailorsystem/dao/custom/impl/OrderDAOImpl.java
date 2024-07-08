@@ -33,31 +33,6 @@ public class OrderDAOImpl implements OrderDAO {
         return SQLUtil.execute("UPDATE orders SET status = ? WHERE orderID = ?", order.getStatus(), order.getOrderID());
     }
 
-    @Override
-    public ResultSet getOrderCartTable(String orderId) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("SELECT od.description, f.fabricName, f.fabricColor, od.measurements, od.fabricSize, od.unitPrice, od.qty FROM orders o JOIN orderDetails od ON o.orderID = od.orderID JOIN fabric f ON od.fabricID = f.fabricID WHERE o.orderID = ?", orderId);
-    }
-
-    @Override
-    public List<String> getOrderDetails(String id) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.execute("SELECT o.orderDate, o.returnDate, o.employeeID, o.status, o.paymentID, c.NIC, c.customerName, c.customerID, e.employeeName, p.paymentType, p.price FROM orders o JOIN customer c ON o.customerID = c.customerID JOIN employee e ON o.employeeID = e.employeeID JOIN payment p ON o.paymentID = p.paymentID WHERE o.orderID = ?", id);
-
-        ArrayList<String> rowData = new ArrayList<>();
-        if (resultSet.next()) {
-            rowData.add(resultSet.getString(1));
-            rowData.add(resultSet.getString(2));
-            rowData.add(resultSet.getString(3));
-            rowData.add(resultSet.getString(4));
-            rowData.add(resultSet.getString(5));
-            rowData.add(resultSet.getString(6));
-            rowData.add(resultSet.getString(7));
-            rowData.add(resultSet.getString(8));
-            rowData.add(resultSet.getString(9));
-            rowData.add(resultSet.getString(10));
-            rowData.add(resultSet.getString(11));
-        }
-        return rowData;
-    }
 
     @Override
     public String generateNewID() throws SQLException, ClassNotFoundException {

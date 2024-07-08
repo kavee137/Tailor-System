@@ -14,11 +14,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.tailorsystem.Util.Regex;
 import lk.ijse.tailorsystem.bo.BOFactory;
-import lk.ijse.tailorsystem.bo.custom.CustomerBO;
-import lk.ijse.tailorsystem.bo.custom.OrderBO;
+import lk.ijse.tailorsystem.bo.custom.PlaceOrderBO;
 import lk.ijse.tailorsystem.dao.DAOFactory;
 import lk.ijse.tailorsystem.dao.custom.*;
-import lk.ijse.tailorsystem.dao.custom.impl.PlaceOrderDAOImpl;
 import lk.ijse.tailorsystem.db.DbConnection;
 import lk.ijse.tailorsystem.dto.OrderDTO;
 import lk.ijse.tailorsystem.entity.Order;
@@ -141,7 +139,7 @@ public class PlaceOrderFormController {
 
     private ObservableList<CartTm> obList = FXCollections.observableArrayList();
 
-    OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
+    PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
     FabricDAO fabricDAO = (FabricDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.FABRIC);
     PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PAYMENT);
     EmployeeDAO employeeDAO = (EmployeeDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.EMPLOYEE);
@@ -216,7 +214,7 @@ public class PlaceOrderFormController {
             try {
 
                 //Transaction call point
-                boolean isPlaced = new PlaceOrderDAOImpl().placeOrder(po, paymentType, netTotal);
+                boolean isPlaced = placeOrderBO.placeOrder(po, paymentType, netTotal);
                 if (isPlaced) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Order Placed!").show();
                     printBill();
@@ -454,7 +452,7 @@ public class PlaceOrderFormController {
     String currentId1 = null;
     private void getCurrentOrderId() {
         try {
-            String currentId = orderBO.generateNewID();
+            String currentId = placeOrderBO.generateNewID();
             currentId1 = currentId;
 
             String nextOrderId = generateNextOrderId(currentId);
@@ -564,7 +562,7 @@ public class PlaceOrderFormController {
         String orderId = txtOrderId.getText();
         tblOrderCart.getItems().clear();
 
-        ResultSet orderCartTableList = orderBO.getOrderCartTable(orderId);
+        ResultSet orderCartTableList = placeOrderBO.getOrderCartTable(orderId);
 
         while (orderCartTableList.next()) {
             String description = orderCartTableList.getString(1);
@@ -582,7 +580,7 @@ public class PlaceOrderFormController {
         }
         lblOrderId.setText(txtOrderId.getText());
 
-        List<String> orderJoinTablesList = orderBO.getOrderDetails(orderId);
+        List<String> orderJoinTablesList = placeOrderBO.getOrderDetails(orderId);
 
         lblOrderDate.setText(orderJoinTablesList.get(0));
         returnDate.setValue(LocalDate.parse(orderJoinTablesList.get(1)));
@@ -598,7 +596,7 @@ public class PlaceOrderFormController {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        boolean isUpdateStatus = orderBO.update(new OrderDTO(lblOrderId.getText(), cmbStatus.getValue()));
+        boolean isUpdateStatus = placeOrderBO.update(new OrderDTO(lblOrderId.getText(), cmbStatus.getValue()));
 
         if (isUpdateStatus) {
             new Alert(Alert.AlertType.CONFIRMATION, "Order Completed!").show();

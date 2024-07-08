@@ -1,6 +1,8 @@
 package lk.ijse.tailorsystem.dao.custom.impl;
 
+import lk.ijse.tailorsystem.dao.DAOFactory;
 import lk.ijse.tailorsystem.dao.SQLUtil;
+import lk.ijse.tailorsystem.dao.custom.QueryDAO;
 import lk.ijse.tailorsystem.dao.custom.ReservationDetailsDAO;
 import lk.ijse.tailorsystem.db.DbConnection;
 import lk.ijse.tailorsystem.entity.ReservationDetails;
@@ -14,12 +16,12 @@ import java.util.List;
 
 public class ReservationDetailsDAOImpl implements ReservationDetailsDAO {
 
+    QueryDAO queryDAO = (QueryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERY);
 
     @Override
     public ResultSet getReservationDetailsTable(int id) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("SELECT rd.productID,  p.productName,  p.productColor, p.unitPrice, rd.qty FROM reservation r JOIN reservationDetails rd ON r.reservationID = rd.reservationID JOIN product p ON rd.productID = p.productID WHERE rd.reservationID = ?", id);
+        return queryDAO.getReservationDetailsTable(id);
     }
-
 
 
     @Override

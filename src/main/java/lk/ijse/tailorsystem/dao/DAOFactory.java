@@ -15,7 +15,7 @@ public class DAOFactory {
     }
 
     public enum DAOTypes {
-        CUSTOMER,PRODUCT,EMPLOYEE,SUPPLIER,FABRIC,USER,RESERVATION,RESERVATIONDETAILS,PLACERESERVATION,PAYMENT,VIEWRESERVATION,ORDER,ORDERDETAILS,VIEWORDER,MAINDASHBOARD
+        CUSTOMER,PRODUCT,EMPLOYEE,SUPPLIER,FABRIC,USER,RESERVATION,RESERVATIONDETAILS,PAYMENT,VIEWRESERVATION,ORDER,ORDERDETAILS,VIEWORDER,MAINDASHBOARD,QUERY
     }
 
     public SuperDAO getDAO(DAOTypes types){
@@ -36,8 +36,6 @@ public class DAOFactory {
                 return new ReservationDAOImpl();
             case RESERVATIONDETAILS:
                 return new ReservationDetailsDAOImpl();
-            case PLACERESERVATION:
-                return new PlaceReservationDAOImpl();
             case PAYMENT:
                 return new PaymentDAOImpl();
             case VIEWRESERVATION:
@@ -50,6 +48,8 @@ public class DAOFactory {
                 return new ViewOrderDAOImpl();
             case MAINDASHBOARD:
                 return new MainDashBoardDAOImpl();
+            case QUERY:
+                return new QueryDAOImpl();
             default:
                 return null;
         }

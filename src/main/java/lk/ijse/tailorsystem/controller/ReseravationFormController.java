@@ -22,10 +22,7 @@ import lk.ijse.tailorsystem.dao.custom.PaymentDAO;
 import lk.ijse.tailorsystem.dao.custom.ProductDAO;
 import lk.ijse.tailorsystem.dao.custom.ReservationDAO;
 import lk.ijse.tailorsystem.db.DbConnection;
-import lk.ijse.tailorsystem.dto.PlaceReservationDTO;
-import lk.ijse.tailorsystem.dto.ProductDTO;
 import lk.ijse.tailorsystem.dto.ReservationDTO;
-import lk.ijse.tailorsystem.dto.ReservationDetailsDTO;
 import lk.ijse.tailorsystem.entity.PlaceReservation;
 import lk.ijse.tailorsystem.entity.Reservation;
 import lk.ijse.tailorsystem.entity.ReservationDetails;
@@ -37,7 +34,6 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -123,13 +119,10 @@ public class ReseravationFormController {
     private TextField txtQty;
 
     private ObservableList<ReservationTm> obList = FXCollections.observableArrayList();
-    ReservationBO reservationBO  = (ReservationBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RESERVATION);
-    ReservationDetailsBO reservationDetailsBO  = (ReservationDetailsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RESERVATIONDETAILS);
     PlaceReservationBO placeReservationBO  = (PlaceReservationBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACERESERVATION);
     ProductBO productBO  = (ProductBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PRODUCT);
     CustomerDAO customerDAO  = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
     ProductDAO productDAO  = (ProductDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PRODUCT);
-    ReservationDAO reservationDAO  = (ReservationDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.RESERVATION);
     PaymentDAO paymentDAO  = (PaymentDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PAYMENT);
 
 
@@ -167,7 +160,7 @@ public class ReseravationFormController {
                 int resId = parseInt(txtReservationId.getText());
                 tblReservation.getItems().clear();
 
-                ResultSet reservationDetailsList = reservationDetailsBO.getReservationDetailsTable(resId);
+                ResultSet reservationDetailsList = placeReservationBO.getReservationDetailsTable(resId);
 
                 while (reservationDetailsList.next()) {
                     int pId = reservationDetailsList.getInt(1);
@@ -182,7 +175,7 @@ public class ReseravationFormController {
                     tblReservation.setItems(obList);
                 }
 
-                ArrayList<String> reservationJoinTablesList = reservationBO.getReservationJoinTable(resId);
+                ArrayList<String> reservationJoinTablesList = placeReservationBO.getReservationJoinTable(resId);
 
                 lblCustomerId.setText(reservationJoinTablesList.get(0));
                 lblCustomerName.setText(reservationJoinTablesList.get(1));
@@ -485,7 +478,7 @@ public class ReseravationFormController {
 
     private void getCurrentReservationId() {
         try {
-            int currentId = Integer.parseInt(reservationBO.generateNewID());
+            int currentId = Integer.parseInt(placeReservationBO.generateNewID());
             currentReservationIdForBillMethod = currentId;
 
             int nextReservationId = generateNextReservationId(currentId);
@@ -636,7 +629,7 @@ public class ReseravationFormController {
         String resId = (lblReservationId.getText());
         String proId = (lblProductId.getText());
 
-        boolean isUpdateStatus = reservationDAO.update(new Reservation(resId));
+        boolean isUpdateStatus = placeReservationBO.update(new ReservationDTO(resId));
 
         boolean isReturnUpdateQty = false;
 
@@ -645,7 +638,7 @@ public class ReseravationFormController {
             isReturnUpdateQty = productDAO.returnUpdateQty(tm.getProductId(), tm.getQty());
         }
 
-        if(isReturnUpdateQty) {
+        if(isReturnUpdateQty && isUpdateStatus) {
             new Alert(Alert.AlertType.CONFIRMATION, "Reservation Completed!").show();
             clearFields();
         } else {
@@ -658,8 +651,6 @@ public class ReseravationFormController {
 
 
     public void btnBillOnAction(ActionEvent actionEvent) throws JRException, SQLException {
-
-
         if (isResIdValied()) {
             int resId = Integer.parseInt(txtReservationId.getText());
             if (currentReservationIdForBillMethod >= resId) {

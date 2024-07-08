@@ -1,9 +1,6 @@
 package lk.ijse.tailorsystem.bo;
 
 import lk.ijse.tailorsystem.bo.custom.impl.*;
-import lk.ijse.tailorsystem.dao.custom.impl.MainDashBoardDAOImpl;
-import lk.ijse.tailorsystem.dao.custom.impl.UserDAOImpl;
-import lk.ijse.tailorsystem.dao.custom.impl.ViewReservationDAOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -32,16 +29,12 @@ public class BOFactory {
                 return new FabricBOImpl();
             case USER:
                 return new UserBOImpl();
-            case RESERVATION:
-                return new ReservationBOImpl();
-            case RESERVATIONDETAILS:
-                return new ReservationDetailsBOImpl();
             case PLACERESERVATION:
                 return new PlaceReservationBOImpl();
             case VIEWRESERVATION:
                 return new ViewReservationBOImpl();
             case ORDER:
-                return new OrderBOImpl();
+                return new PlaceOrderBOImpl();
             case VIEWORDER:
                 return new ViewOrderBOImpl();
             case MAINDASHBOARD:
