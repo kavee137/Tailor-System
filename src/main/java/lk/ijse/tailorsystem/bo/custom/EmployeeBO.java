@@ -1,6 +1,7 @@
 package lk.ijse.tailorsystem.bo.custom;
 
 import lk.ijse.tailorsystem.bo.SuperBO;
+import lk.ijse.tailorsystem.dto.EmployeeDTO;
 import lk.ijse.tailorsystem.entity.Employee;
 
 import java.sql.SQLException;
@@ -16,13 +17,13 @@ public interface EmployeeBO extends SuperBO {
 
     Employee search(Object... nic) throws SQLException, ClassNotFoundException;
 
-    boolean update(Employee employee) throws SQLException, ClassNotFoundException;
+    boolean update(EmployeeDTO employee) throws SQLException, ClassNotFoundException;
 
     boolean exist(String id) throws SQLException, ClassNotFoundException;
 
     boolean delete(String nic) throws SQLException, ClassNotFoundException;
 
-    boolean add(Employee employee) throws SQLException, ClassNotFoundException;
+    boolean add(EmployeeDTO employee) throws SQLException, ClassNotFoundException;
 
     List<String> getPosition() throws SQLException, ClassNotFoundException;
 

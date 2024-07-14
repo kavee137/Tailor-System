@@ -2,6 +2,7 @@ package lk.ijse.tailorsystem.bo.custom;
 
 import lk.ijse.tailorsystem.bo.SuperBO;
 import lk.ijse.tailorsystem.dto.OrderDTO;
+import lk.ijse.tailorsystem.dto.PlaceOrderDTO;
 import lk.ijse.tailorsystem.entity.PlaceOrder;
 
 import java.sql.ResultSet;
@@ -21,5 +22,5 @@ public interface PlaceOrderBO extends SuperBO {
 
     String generateNewID() throws SQLException, ClassNotFoundException;
 
-    boolean placeOrder(PlaceOrder po, String paymentType, double netTotal) throws SQLException;
+    boolean placeOrder(PlaceOrderDTO po, String paymentType, double netTotal) throws SQLException;
 }

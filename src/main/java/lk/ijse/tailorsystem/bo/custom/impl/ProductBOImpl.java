@@ -56,8 +56,8 @@ public class ProductBOImpl implements ProductBO {
     }
 
     @Override
-    public boolean update(Product product) throws SQLException, ClassNotFoundException {
-        return productDAO.update(product);
+    public boolean update(ProductDTO prd) throws SQLException, ClassNotFoundException {
+        return productDAO.update(new Product(prd.getProductID(), prd.getProductName(), prd.getProductColor(), prd.getProductSize(), prd.getUnitPrice(), prd.getQtyOnHand()));
     }
 
     @Override

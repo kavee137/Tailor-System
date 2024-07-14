@@ -8,7 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.tailorsystem.bo.BOFactory;
+import lk.ijse.tailorsystem.bo.custom.FabricBO;
+import lk.ijse.tailorsystem.bo.custom.LoginBO;
 import lk.ijse.tailorsystem.dao.SQLUtil;
+import lk.ijse.tailorsystem.dto.LoginDTO;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -20,19 +24,23 @@ public class LoginFormController {
 
     public AnchorPane rootNode;
 
-    private String loggedInUserName;
+    LoginBO loginBO  = (LoginBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.LOGIN);
 
 
 
     public void initialize() {
     }
 
+
     public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
         String userId = txtUserId.getText();
         String pw = txtPassword.getText();
 
         try {
-            checkCredential(userId, pw);
+            boolean isCredentialTrue = loginBO.checkCredential(new LoginDTO(userId, pw));
+            if (isCredentialTrue) {
+                navigateToTheDashboard((Stage) rootNode.getScene().getWindow());
+            }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
@@ -40,22 +48,6 @@ public class LoginFormController {
         }
     }
 
-    private void checkCredential(String userId, String pw) throws SQLException, IOException, ClassNotFoundException {
-        ResultSet resultSet = SQLUtil.execute("SELECT userName, password FROM user WHERE userName = ? AND status = 'Active'", userId);
-
-        if (resultSet.next()) {
-            String dbPw = resultSet.getString("password");
-
-            if (pw.equals(dbPw)) {
-                loggedInUserName = resultSet.getString("userName");
-                navigateToTheDashboard((Stage) rootNode.getScene().getWindow());
-            } else {
-                new Alert(Alert.AlertType.ERROR, "sorry! password is incorrect!").show();
-            }
-        } else {
-            new Alert(Alert.AlertType.INFORMATION, "sorry! user id can't be find!").show();
-        }
-    }
 
     private void navigateToTheDashboard(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/dashboard_form.fxml"));
@@ -78,7 +70,10 @@ public class LoginFormController {
         String pw = txtPassword.getText();
 
         try {
-            checkCredential(userId, pw);
+            boolean isCredentialTrue = loginBO.checkCredential(new LoginDTO(userId, pw));
+            if (isCredentialTrue) {
+                navigateToTheDashboard((Stage) rootNode.getScene().getWindow());
+            }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
@@ -91,7 +86,10 @@ public class LoginFormController {
         String pw = txtPassword.getText();
 
         try {
-            checkCredential(userId, pw);
+            boolean isCredentialTrue = loginBO.checkCredential(new LoginDTO(userId, pw));
+            if (isCredentialTrue) {
+                navigateToTheDashboard((Stage) rootNode.getScene().getWindow());
+            }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {

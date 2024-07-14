@@ -5,6 +5,7 @@ import lk.ijse.tailorsystem.dao.DAOFactory;
 import lk.ijse.tailorsystem.dao.custom.CustomerDAO;
 import lk.ijse.tailorsystem.dao.custom.EmployeeDAO;
 import lk.ijse.tailorsystem.db.DbConnection;
+import lk.ijse.tailorsystem.dto.EmployeeDTO;
 import lk.ijse.tailorsystem.entity.Employee;
 
 import java.sql.PreparedStatement;
@@ -34,8 +35,8 @@ public class EmployeeBOImpl implements EmployeeBO {
 
 
     @Override
-    public boolean update(Employee employee) throws SQLException, ClassNotFoundException {
-        return employeeDAO.update(employee);
+    public boolean update(EmployeeDTO emp) throws SQLException, ClassNotFoundException {
+        return employeeDAO.update(new Employee(emp.getEmployeeID(), emp.getUserID(), emp.getNIC(), emp.getPosition(), emp.getEmployeeName(), emp.getPhoneNumber(), emp.getEmployeeAddress(), emp.getSalary(), emp.getStatus()));
     }
 
     @Override
@@ -49,8 +50,8 @@ public class EmployeeBOImpl implements EmployeeBO {
     }
 
     @Override
-    public boolean add(Employee employee) throws SQLException, ClassNotFoundException {
-        return employeeDAO.add(employee);
+    public boolean add(EmployeeDTO emp) throws SQLException, ClassNotFoundException {
+        return employeeDAO.add(new Employee(emp.getEmployeeID(), emp.getUserID(), emp.getNIC(), emp.getPosition(), emp.getEmployeeName(), emp.getPhoneNumber(), emp.getEmployeeAddress(), emp.getSalary(), emp.getStatus()));
     }
 
     @Override

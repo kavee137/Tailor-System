@@ -19,6 +19,8 @@ import lk.ijse.tailorsystem.dao.DAOFactory;
 import lk.ijse.tailorsystem.dao.custom.*;
 import lk.ijse.tailorsystem.db.DbConnection;
 import lk.ijse.tailorsystem.dto.OrderDTO;
+import lk.ijse.tailorsystem.dto.OrderDetailsDTO;
+import lk.ijse.tailorsystem.dto.PlaceOrderDTO;
 import lk.ijse.tailorsystem.entity.Order;
 import lk.ijse.tailorsystem.entity.OrderDetails;
 import lk.ijse.tailorsystem.entity.PlaceOrder;
@@ -189,15 +191,15 @@ public class PlaceOrderFormController {
             double netTotal = Double.parseDouble(lblNetTotal.getText());
             String status = "processing";
 
-            var order = new Order(orderId, cusId, paymentId, employeeID, orderDate, returnDateValue, status);
+            var orderDTO = new OrderDTO(orderId, cusId, paymentId, employeeID, orderDate, returnDateValue, status);
 
-            List<OrderDetails> odList = new ArrayList<>();
+            List<OrderDetailsDTO> odList = new ArrayList<>();
 
             for (int i = 0; i < tblOrderCart.getItems().size(); i++) {
                 CartTm tm = obList.get(i);
 
                 List<String> fabId = fabricDAO.getFabricId(obList.get(i).getFabricName(), obList.get(i).getFabricColor());
-                OrderDetails od = new OrderDetails(
+                OrderDetailsDTO od = new OrderDetailsDTO(
                         orderId,
                         fabId.get(0),
                         tm.getDescription(),
@@ -210,7 +212,7 @@ public class PlaceOrderFormController {
                 odList.add(od);
             }
 
-            PlaceOrder po = new PlaceOrder(order, odList);
+            PlaceOrderDTO po = new PlaceOrderDTO(orderDTO, odList);
             try {
 
                 //Transaction call point

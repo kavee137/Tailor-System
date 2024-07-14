@@ -24,7 +24,7 @@ public interface ProductBO extends SuperBO {
 
     boolean delete(String id) throws SQLException, ClassNotFoundException;
 
-    boolean update(Product product) throws SQLException, ClassNotFoundException;
+    boolean update(ProductDTO product) throws SQLException, ClassNotFoundException;
 
     boolean exist(String id) throws SQLException, ClassNotFoundException;
 

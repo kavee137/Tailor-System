@@ -122,20 +122,6 @@ public class ProductFormController {
         }
     }
 
-   /* private void getProductSize() {
-        ObservableList<String> obList = FXCollections.observableArrayList();
-        String color = cmbProductColor.getValue();
-        String name = cmbProductName.getValue();
-        try {
-            List<String> sizeList = productBO.getProductSize(color, name);
-
-            obList.addAll(sizeList);
-            cmbProductSize.setItems(obList);
-
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
 
     private void getProductSize() {
         ObservableList<String> obList = FXCollections.observableArrayList();
@@ -164,7 +150,6 @@ public class ProductFormController {
                 obList.add(code);
             }
             cmbProductName.setItems(obList);
-            String productName = (String) cmbProductName.getValue();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -214,12 +199,9 @@ public class ProductFormController {
         String price = txtUnitPrice.getText();
         String qtyOnHand = txtQtyOnHand.getText();
 
-
-        Product product = new Product(id, name, color, size, price, qtyOnHand);
-
         if (isValied()) {
             try {
-                boolean isUpdated = productBO.update(product);
+                boolean isUpdated = productBO.update(new ProductDTO(id, name, color, size, price, qtyOnHand));
                 if(isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "product updated!").show();
                     clearFields();

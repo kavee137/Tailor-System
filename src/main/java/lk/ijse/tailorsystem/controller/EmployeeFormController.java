@@ -14,6 +14,7 @@ import lk.ijse.tailorsystem.bo.BOFactory;
 import lk.ijse.tailorsystem.bo.custom.CustomerBO;
 import lk.ijse.tailorsystem.bo.custom.EmployeeBO;
 import lk.ijse.tailorsystem.dao.DAOFactory;
+import lk.ijse.tailorsystem.dto.EmployeeDTO;
 import lk.ijse.tailorsystem.entity.Employee;
 import lk.ijse.tailorsystem.view.tdm.EmployeeTm;
 
@@ -271,7 +272,7 @@ public class EmployeeFormController {
             String userId = txtUserId.getText();
             String status = "Active";
 
-            Employee employee = new Employee(id, userId, nic, position, name, tel, address, salary, status);
+            EmployeeDTO employee = new EmployeeDTO(id, userId, nic, position, name, tel, address, salary, status);
             try {
                 boolean isSaved = employeeBO.add(employee);
                 if (isSaved) {
@@ -341,7 +342,7 @@ public class EmployeeFormController {
             String userId = "U01";
             String status = txtStatus.getText();
 
-            Employee employee = new Employee(id, userId, nic, position, name, tel, address, salary, status);
+            EmployeeDTO employee = new EmployeeDTO(id, userId, nic, position, name, tel, address, salary, status);
             try {
                 boolean isUpdated = employeeBO.update(employee);
                 if(isUpdated) {
